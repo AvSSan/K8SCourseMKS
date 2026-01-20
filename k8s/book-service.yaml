@@ -7,7 +7,7 @@ spec:
     app: book-service
   ports:
     - port: 80       # Внутри кластера сервис доступен на 80 порту
-      targetPort: 5000 # Предположим, Flask/FastAPI слушает 5000
+      targetPort: 8000 # Предположим, Flask/FastAPI слушает 5000
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -37,5 +37,5 @@ spec:
               value: "mks_db"
             - name: DB_USER
               value: "postgres"
-            - name: DB_PASSWORD
+            - name: DB_PASS
               value: "mysecretpassword"

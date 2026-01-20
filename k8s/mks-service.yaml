@@ -7,7 +7,7 @@ spec:
     app: mks-backend
   ports:
     - port: 80
-      targetPort: 8080
+      targetPort: 8081
 ---
 apiVersion: apps/v1
 kind: Deployment
