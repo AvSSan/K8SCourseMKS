@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: book-service
+spec:
+  selector:
+    app: book-service
+  ports:
+    - port: 80       # Внутри кластера сервис доступен на 80 порту
+      targetPort: 5000 # Предположим, Flask/FastAPI слушает 5000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: book-service
+  template:
+    metadata:
+      labels:
+        app: book-service
+    spec:
+      containers:
+        - name: book-service
+          image: mks-project/book-service:v1
+          imagePullPolicy: Never # ВАЖНО: Не пытайся скачать из интернета, бери локальный (собранный на этапе 1)
+          env:
+            - name: DB_HOST
+              value: "postgres-db"
+            - name: DB_PORT
+              value: "5432"
+            # ДОБАВИТЬ ЭТО:
+            - name: DB_NAME      # Проверь, как переменная называется у тебя в Python-коде
+              value: "mks_db"
+            - name: DB_USER
+              value: "postgres"
+            - name: DB_PASSWORD
+              value: "mysecretpassword"

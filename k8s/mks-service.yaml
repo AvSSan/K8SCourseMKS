@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mks-backend
+spec:
+  selector:
+    app: mks-backend
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mks-backend
+spec:
+  selector:
+    matchLabels:
+      app: mks-backend
+  template:
+    metadata:
+      labels:
+        app: mks-backend
+    spec:
+      containers:
+        - name: mks-backend
+          image: mks-project/mks-backend:v1
+          imagePullPolicy: Never # Снова: используем локальный образ
+          env:
+            - name: DATASOURCE_URL
+              value: "jdbc:postgresql://postgres-db:5432/mks_db"
+            # ДОБАВИТЬ ЭТО:
+            - name: DATASOURCE_USERNAME  # Или SPRING_DATASOURCE_USERNAME
+              value: "postgres"          # Пользователь по умолчанию
+            - name: DATASOURCE_PASSWORD  # Или SPRING_DATASOURCE_PASSWORD
+              value: "mysecretpassword"  # Тот же, что в postgres.yaml

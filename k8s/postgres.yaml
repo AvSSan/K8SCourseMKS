@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-db  # Это DNS-имя, по которому другие сервисы будут искать базу
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432     # Порт сервиса
+      targetPort: 5432 # Порт контейнера
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15-alpine # Официальный образ
+          env:
+            - name: POSTGRES_PASSWORD
+              value: "mysecretpassword" # В проде так делать нельзя (нужны Secrets), для теста ок
+            - name: POSTGRES_DB
+              value: "mks_db"
