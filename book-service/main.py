@@ -11,14 +11,12 @@ class Book(BaseModel):
     title: str
     author: str
 
-# Берем настройки из переменных окружения (которые мы задали в docker-compose)
 DB_NAME = os.getenv("DB_NAME", "postgres")
 DB_USER = os.getenv("DB_USER", "postgres")
 DB_PASS = os.getenv("DB_PASS", "postgres")
 DB_HOST = os.getenv("DB_HOST", "localhost")
 
 def get_db_connection():
-    # Простая "ожидалка", чтобы БД успела запуститься раньше сервиса
     retries = 5
     while retries > 0:
         try:
