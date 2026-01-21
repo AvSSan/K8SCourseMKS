@@ -17,7 +17,7 @@ public class MksController {
             e.printStackTrace();
         }
 
-        return "Привет! Это Java сервис MKS. Я работаю внутри контейнера: " + hostName;
+        return "Привет! Это Java сервис MKS. Я работаю внутри контейнера: " + hostName + ". Проверка работы CI/CD!";
     }
 
     @GetMapping("/status")
