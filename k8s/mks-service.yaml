@@ -26,7 +26,6 @@ spec:
       containers:
         - name: mks-backend
           image: mks-project/mks-backend:v1
-          imagePullPolicy: Never # Снова: используем локальный образ
           env:
             - name: DATASOURCE_URL
               value: "jdbc:postgresql://postgres-db:5432/mks_db"

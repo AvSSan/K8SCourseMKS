@@ -26,7 +26,6 @@ spec:
       containers:
         - name: book-service
           image: mks-project/book-service:v1
-          imagePullPolicy: Never # ВАЖНО: Не пытайся скачать из интернета, бери локальный (собранный на этапе 1)
           env:
             - name: DB_HOST
               value: "postgres-db"
