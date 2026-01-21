@@ -25,7 +25,8 @@ spec:
     spec:
       containers:
         - name: book-service
-          image: mks-project/book-service:v1
+          image: deogseon/book-service:latest
+          imagePullPolicy: Always
           env:
             - name: DB_HOST
               value: "postgres-db"

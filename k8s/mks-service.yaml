@@ -25,7 +25,8 @@ spec:
     spec:
       containers:
         - name: mks-backend
-          image: mks-project/mks-backend:v1
+          image: deogseon/mks-backend:latest
+          imagePullPolicy: Always
           env:
             - name: DATASOURCE_URL
               value: "jdbc:postgresql://postgres-db:5432/mks_db"
